@@ -16,6 +16,10 @@ def quickselect(arr, left, right, k_val, arr_len):
             return quickselect(arr, part_pos + 1, right, k_val - part_pos + left - 1, arr_len)
 
 def partition(arr, left, right):
+    random_index = random.randint(left, right)
+    temp = arr[right]
+    arr[right] = arr[random_index]
+    arr[random_index] = temp
     pivot_val = arr[right]
     i = left
     for j in range(left, right):
