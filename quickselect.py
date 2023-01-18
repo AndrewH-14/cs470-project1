@@ -41,10 +41,10 @@ def main():
     csv_reader = csv.reader(file)
     data = list()
     for line in csv_reader:
-        data = line
-    for num in data:
+        data.append(line)
+    for num in data[0]:
         all_input_nums.append(int(num))
-    k_val = int(input('Type the k_value\n'))
+    k_val = int(data[1][0])
     list_len = len(all_input_nums)
     quickselect(all_input_nums, 0, list_len - 1, list_len - k_val - 1, list_len)
     if (k_val >= 1 and k_val <= list_len):
