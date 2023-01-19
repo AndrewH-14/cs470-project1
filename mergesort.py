@@ -207,8 +207,9 @@ def main():
     global data
     global turtles
     global k
-    data_string = input()
-    k = int(input())
+    file = open("unsorted_input.txt", "r")
+    data_string = file.readline()
+    k = int(file.readline())
     data_string_array = data_string.split(',')
     data = [int(x) for x in data_string_array]
 
