@@ -25,21 +25,17 @@ PIVOT_COLOR       = "crimson"
 SCREEN_BORDER     = 10
 BAR_WIDTH         = 10
 
-def quickselect(all_input_nums, left, right, k_val, arr_len):
-
-    print(all_input_nums)
-
-    if (k_val > 0 and k_val <= right - left + 1):
-        part_pos = partition(all_input_nums, left, right)
-        # print(f'part_pos = {part_pos}, arr = {arr}')
-        if (part_pos - left == k_val - 1):
-            return partition(all_input_nums, left, right)
-        if (part_pos - left > k_val - 1):
-            # print(f'partition positition was higher than the k_val - 1: {part_pos}')
-            return quickselect(all_input_nums, left, part_pos - 1, k_val, arr_len)
-        else:
-            # print(f'partition positition was lower than the k_val - 1: {part_pos}')
-            return quickselect(all_input_nums, part_pos + 1, right, k_val - part_pos + left - 1, arr_len)
+def quickselect(all_input_nums, left, right, k_val):
+    part_pos = partition(all_input_nums, left, right)
+    # print(f'part_pos = {part_pos}, arr = {arr}')
+    if (len(all_input_nums) - part_pos == k_val):
+        return partition(all_input_nums, left, right)
+    if (len(all_input_nums) - part_pos > k_val):
+        # print(f'partition positition was higher than the k_val - 1: {part_pos}')
+        return quickselect(all_input_nums, part_pos, len(all_input_nums) - 1, k_val)
+    else:
+        # print(f'partition positition was lower than the k_val - 1: {part_pos}')
+        return quickselect(all_input_nums, left, part_pos, k_val)
 
 def partition(all_input_nums, left, right):
 
@@ -47,9 +43,9 @@ def partition(all_input_nums, left, right):
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, all_input_nums[idx], ARRAY_SUBLIST_COLOR)
         screen.update()
-        time.sleep(0.1)
+        time.sleep(0)
 
-    time.sleep(1)
+    time.sleep(0)
 
     random_index = random.randint(left, right)
     DrawBar(turtles[random_index], BAR_WIDTH * random_index, 0, all_input_nums[random_index], PIVOT_COLOR)
@@ -74,7 +70,7 @@ def partition(all_input_nums, left, right):
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, all_input_nums[idx], DEFAULT_BAR_COLOR)
         screen.update()
-        time.sleep(0.1)
+        time.sleep(0)
 
     return i
 
@@ -87,7 +83,8 @@ def BeginSorting():
 
     # Start the quick select algorithm
     list_len = len(all_input_nums)
-    quickselect(all_input_nums, 0, list_len - 1, list_len - k_val - 1, list_len)
+    quickselect(all_input_nums, 0, list_len - 1, k_val)
+    print(all_input_nums)
 
     # Write the completion status message to the screen
     WriteStatus("Complete", COMPLETION_COLOR)
@@ -100,7 +97,7 @@ def BeginSorting():
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, all_input_nums[idx], COMPLETION_COLOR)
         screen.update()
-        time.sleep(0.1)
+        time.sleep(0)
 
 def WriteStatus(status_message, color):
     status_writer.clear()
