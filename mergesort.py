@@ -1,10 +1,12 @@
 import turtle
 import time
 
-# Create a global data array so that all of the functions can access it
+# Global data variables used in various functions
 data    = []
 turtles = []
-k = 0
+k       = 0
+bar_coloring_speed = 0
+pause_length = 0
 
 # Global turtle objects used in various functions
 screen             = turtle.Screen()
@@ -22,26 +24,28 @@ COMPLETION_COLOR  = "green"
 SCREEN_BACKGROUND = "light gray"
 SCREEN_BORDER     = 10
 BAR_WIDTH         = 10
+SCREEN_WIDTH      = 1000
+SCREEN_HEIGHT     = 700
 
 def Merge(lower_idx, middle_idx, upper_idx):
     sorted_data     = []
     left_iter       = lower_idx
     right_iter      = middle_idx + 1
 
-    WriteDescription("Dividing into sublists...", "gray")
+    WriteDescription("Dividing into sublists...", DESCRIPTION_COLOR)
 
     # Indicate the two sections we are merging by their color
     for idx in range(lower_idx, middle_idx + 1):
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], SUBLIST_ONE_COLOR)
         screen.update()
-        time.sleep(0.1)
+        time.sleep(bar_coloring_speed)
     for idx in range(middle_idx + 1, upper_idx + 1):
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], SUBLIST_TWO_COLOR)
         screen.update()
-        time.sleep(0.1)
-    time.sleep(1)
+        time.sleep(bar_coloring_speed)
+    time.sleep(pause_length)
 
     # Compare elements from either side of the array and add the smaller one to the
     # sorted array
@@ -74,13 +78,13 @@ def Merge(lower_idx, middle_idx, upper_idx):
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], MERGED_LIST_COLOR)
         screen.update()
-        time.sleep(0.1)
-    time.sleep(1)
+        time.sleep(bar_coloring_speed)
+    time.sleep(pause_length)
     for idx in range(lower_idx, upper_idx + 1):
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], DEFAULT_BAR_COLOR)
     screen.update()
-    time.sleep(1)
+    time.sleep(pause_length)
 
 # Recursive function to sort sections of the array
 def MergeSort(lower_idx, upper_idx):
@@ -115,7 +119,7 @@ def InitScreen():
     # Creates a title for the screen's window
     screen.title("Merge Sort Algorithm")
     # Sets the height and width of the turtle window
-    screen.setup(1000, 700)
+    screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
     # Sets the screens background color
     screen.bgcolor(SCREEN_BACKGROUND)
     # Turns of the screen's auto update feature
@@ -127,9 +131,32 @@ def InitScreen():
                                BAR_WIDTH * len(data) + SCREEN_BORDER,
                                max(data) + SCREEN_BORDER)
 
+def SetSpeedOne():
+    global bar_coloring_speed
+    global pause_length
+    bar_coloring_speed = 0.1
+    pause_length = 1
+    BeginSorting()
+
+def SetSpeedTwo():
+    global bar_coloring_speed
+    global pause_length
+    bar_coloring_speed = 0.05
+    pause_length = 0.5
+    BeginSorting()
+
+def SetSpeedThree():
+    global bar_coloring_speed
+    global pause_length
+    bar_coloring_speed = 0.025
+    pause_length = 0.25
+    BeginSorting()
+
 def BeginSorting():
     # Turn off the onkey property so the sorting is not accidently restarted
-    screen.onkey(None, "space")
+    screen.onkey(None, "1")
+    screen.onkey(None, "2")
+    screen.onkey(None, "3")
 
     # Write the sorting status message to the screen
     WriteStatus("Sorting...", STATUS_COLOR)
@@ -148,7 +175,7 @@ def BeginSorting():
         turtles[idx].clear()
         DrawBar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], COMPLETION_COLOR)
         screen.update()
-        time.sleep(0.1)
+        time.sleep(bar_coloring_speed)
 
 def WriteStatus(status_message, color):
     status_writer.clear()
@@ -156,7 +183,7 @@ def WriteStatus(status_message, color):
     status_writer.speed("fastest")
     status_writer.color(color)
     status_writer.penup()
-    status_writer.goto((BAR_WIDTH * len(data) + SCREEN_BORDER) / 2, (max(data) + SCREEN_BORDER) / 1.1)
+    status_writer.goto((BAR_WIDTH * len(data)) / 2, (max(data) + SCREEN_BORDER) / 1.1)
     status_writer.pendown()
     status_writer.write(status_message, False, align="center", font=('Courier', 25, 'bold'))
     status_writer.penup()
@@ -168,7 +195,7 @@ def WriteDescription(description_message, color):
     description_writer.speed("fastest")
     description_writer.color(color)
     description_writer.penup()
-    description_writer.goto((BAR_WIDTH * len(data) + SCREEN_BORDER) / 2, (max(data) + SCREEN_BORDER) / 1.2)
+    description_writer.goto((BAR_WIDTH * len(data)) / 2, (max(data) + SCREEN_BORDER) / 1.2)
     description_writer.pendown()
     description_writer.color(color)
     description_writer.write(description_message, False, align="center", font=('Courier', 20, 'bold'))
@@ -198,12 +225,13 @@ def main():
         turtles.append(franklin)
     screen.update()
 
-    WriteStatus("Press space to begin sorting", STATUS_COLOR)
-
-    screen.onkey(BeginSorting, "space")
+    WriteStatus("Select a speed to begin sorting 1, 2, 3", STATUS_COLOR)
+    screen.onkey(SetSpeedOne, "1")
+    screen.onkey(SetSpeedTwo, "2")
+    screen.onkey(SetSpeedThree, "3")
     screen.listen()
 
-    # Keep the turtle screen open until mouse is clicked
+    # Keep the turtle screen open until window is closed
     screen.mainloop()
 
 if __name__ == "__main__":
