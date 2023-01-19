@@ -2,35 +2,37 @@ import turtle
 import time
 
 # Global data variables used in various functions
-data    = []
+data = []
 turtles = []
-k       = 0
+k = 0
 bar_coloring_speed = 0
 pause_length = 0
 
 # Global turtle objects used in various functions
-screen             = turtle.Screen()
-status_writer      = turtle.Turtle()
+screen = turtle.Screen()
+status_writer = turtle.Turtle()
 description_writer = turtle.Turtle()
+legend_writer = turtle.Turtle()
 
 # Customization settings
-STATUS_COLOR      = "black"
+STATUS_COLOR = "black"
 DESCRIPTION_COLOR = "gray"
 DEFAULT_BAR_COLOR = "gray"
 SUBLIST_ONE_COLOR = "crimson"
 SUBLIST_TWO_COLOR = "white"
 MERGED_LIST_COLOR = "gold"
-COMPLETION_COLOR  = "green"
+COMPLETION_COLOR = "green"
 SCREEN_BACKGROUND = "light gray"
-SCREEN_BORDER     = 10
-BAR_WIDTH         = 10
-SCREEN_WIDTH      = 1000
-SCREEN_HEIGHT     = 700
+SCREEN_BORDER = 10
+BAR_WIDTH = 10
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 700
+
 
 def Merge(lower_idx, middle_idx, upper_idx):
-    sorted_data     = []
-    left_iter       = lower_idx
-    right_iter      = middle_idx + 1
+    sorted_data = []
+    left_iter = lower_idx
+    right_iter = middle_idx + 1
 
     WriteDescription("Dividing into sublists...", DESCRIPTION_COLOR)
 
@@ -87,6 +89,8 @@ def Merge(lower_idx, middle_idx, upper_idx):
     time.sleep(pause_length)
 
 # Recursive function to sort sections of the array
+
+
 def MergeSort(lower_idx, upper_idx):
     if lower_idx >= upper_idx:
         return
@@ -96,6 +100,8 @@ def MergeSort(lower_idx, upper_idx):
     Merge(lower_idx, middle_idx, upper_idx)
 
 # Draws a bar assuming the turtle is facing east
+
+
 def DrawBar(t, x, y, height, color):
     t.fillcolor(color)
     t.setheading(0)
@@ -115,6 +121,8 @@ def DrawBar(t, x, y, height, color):
     t.end_fill()
 
 # Set up the screen for creating the animation
+
+
 def InitScreen():
     # Creates a title for the screen's window
     screen.title("Merge Sort Algorithm")
@@ -131,12 +139,14 @@ def InitScreen():
                                BAR_WIDTH * len(data) + SCREEN_BORDER,
                                max(data) + SCREEN_BORDER)
 
+
 def SetSpeedOne():
     global bar_coloring_speed
     global pause_length
     bar_coloring_speed = 0.1
     pause_length = 1
     BeginSorting()
+
 
 def SetSpeedTwo():
     global bar_coloring_speed
@@ -145,12 +155,14 @@ def SetSpeedTwo():
     pause_length = 0.5
     BeginSorting()
 
+
 def SetSpeedThree():
     global bar_coloring_speed
     global pause_length
     bar_coloring_speed = 0.025
     pause_length = 0.25
     BeginSorting()
+
 
 def BeginSorting():
     # Turn off the onkey property so the sorting is not accidently restarted
@@ -161,6 +173,9 @@ def BeginSorting():
     # Write the sorting status message to the screen
     WriteStatus("Sorting...", STATUS_COLOR)
 
+    # D
+    DrawLegend(STATUS_COLOR)
+
     # Start the merge sort algorithm
     MergeSort(0, len(data) - 1)
 
@@ -168,7 +183,8 @@ def BeginSorting():
     WriteStatus("Complete", COMPLETION_COLOR)
 
     # Write a description message to the screen
-    WriteDescription("Displaying top " + str(k) + " integers", DESCRIPTION_COLOR)
+    WriteDescription("Displaying top " + str(k) +
+                     " integers", DESCRIPTION_COLOR)
 
     # Show the top k integers in the data list
     for idx in range(len(data) - k, len(data)):
@@ -177,17 +193,85 @@ def BeginSorting():
         screen.update()
         time.sleep(bar_coloring_speed)
 
+
 def WriteStatus(status_message, color):
     status_writer.clear()
     status_writer.hideturtle()
     status_writer.speed("fastest")
     status_writer.color(color)
     status_writer.penup()
-    status_writer.goto((BAR_WIDTH * len(data)) / 2, (max(data) + SCREEN_BORDER) / 1.1)
+    status_writer.goto((BAR_WIDTH * len(data)) / 2,
+                       (max(data) + SCREEN_BORDER) / 1.1)
     status_writer.pendown()
-    status_writer.write(status_message, False, align="center", font=('Courier', 25, 'bold'))
+    status_writer.write(status_message, False, align="center",
+                        font=('Courier', 25, 'bold'))
     status_writer.penup()
     screen.update()
+
+
+def LegendLabel(color, position, label):
+
+    # Draw label
+    legend_writer.goto((5) /
+                       2, (max(data) + SCREEN_BORDER) / position)
+    status_writer.pendown()
+    legend_writer.write(label, False, align="left",
+                        font=('Courier', 14))
+    legend_writer.penup()
+
+    # Draw color
+    legend_writer.goto((75) /
+                       2, 1 + (max(data) + SCREEN_BORDER) / position)
+    legend_writer.fillcolor(color)
+    legend_writer.begin_fill()
+    legend_writer.forward(10)
+    legend_writer.right(90)
+    legend_writer.forward(1)
+    legend_writer.right(90)
+    legend_writer.forward(10)
+    legend_writer.right(90)
+    legend_writer.forward(1)
+    legend_writer.right(90)
+    legend_writer.end_fill()
+
+
+def DrawLegend(color):
+    legend_writer.clear()
+    legend_writer.hideturtle()
+    legend_writer.speed("fastest")
+    legend_writer.color(color)
+    legend_writer.penup()
+
+    # Draw legend square
+    legend_writer.goto((0) /
+                       2, (max(data) + SCREEN_BORDER) / 1.01)
+    legend_writer.pendown()
+    legend_writer.width(4)
+    legend_writer.forward(50)  # Forward turtle by 50 units
+    legend_writer.right(90)  # Turn turtle by 90 degree
+    legend_writer.forward(7.5)  # Forward turtle by 7 units
+    legend_writer.right(90)  # Turn turtle by 90 degree
+    legend_writer.forward(50)  # Forward turtle by 50 units
+    legend_writer.right(90)  # Turn turtle by 90 degree
+    legend_writer.forward(7.5)  # Forward turtle by 7 units
+    legend_writer.right(90)  # Turn turtle by 90 degree
+    legend_writer.penup()
+
+    # Draw legend Title
+    legend_writer.goto((50) /
+                       2, (max(data) + SCREEN_BORDER) / 1.07)
+    status_writer.pendown()
+    legend_writer.write("Legend", False, align="center",
+                        font=('Courier', 15, 'bold'))
+    legend_writer.penup()
+
+    # Draw legend labels
+    LegendLabel("crimson", 1.125, "Left Sublist")
+    LegendLabel("white", 1.1875, "Right Sublist")
+    LegendLabel("gold", 1.25, "Merged List")
+    LegendLabel("green", 1.325, "Top 3 Integers")
+    screen.update()
+
 
 def WriteDescription(description_message, color):
     description_writer.clear()
@@ -195,12 +279,15 @@ def WriteDescription(description_message, color):
     description_writer.speed("fastest")
     description_writer.color(color)
     description_writer.penup()
-    description_writer.goto((BAR_WIDTH * len(data)) / 2, (max(data) + SCREEN_BORDER) / 1.2)
+    description_writer.goto((BAR_WIDTH * len(data)) / 2,
+                            (max(data) + SCREEN_BORDER) / 1.2)
     description_writer.pendown()
     description_writer.color(color)
-    description_writer.write(description_message, False, align="center", font=('Courier', 20, 'bold'))
+    description_writer.write(description_message, False,
+                             align="center", font=('Courier', 20, 'bold'))
     description_writer.penup()
     screen.update()
+
 
 def main():
     # Initialize the global data variables that will be used in various functions
@@ -234,6 +321,7 @@ def main():
 
     # Keep the turtle screen open until window is closed
     screen.mainloop()
+
 
 if __name__ == "__main__":
     main()
