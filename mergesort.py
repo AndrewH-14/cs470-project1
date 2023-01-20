@@ -27,7 +27,8 @@ SCREEN_BORDER = 10
 BAR_WIDTH = 10
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
-
+BOX_WIDTH = 10
+BOX_HEIGHT = 2
 
 def Merge(lower_idx, middle_idx, upper_idx):
     sorted_data = []
@@ -104,24 +105,52 @@ def MergeSort(lower_idx, upper_idx):
 
 def DrawBar(t, x, y, height, color):
     t.fillcolor(color)
-    t.setheading(0)
+    #t.setheading(0)
     t.penup()
-    t.goto(x, y)
+    t.goto(x, y + 5)
     t.pendown()
     t.begin_fill()
     t.left(90)
-    t.forward(height)
+    t.forward(height/2)
     t.right(90)
     t.forward(BAR_WIDTH / 2)
     t.write(str(height))
     t.forward(BAR_WIDTH / 2)
     t.right(90)
-    t.forward(height)
-    t.left(90)
+    t.forward(height/2)
+    t.right(90)
+    t.forward(BAR_WIDTH)
     t.end_fill()
+    t.left(180)
+    t.forward(BAR_WIDTH)
+    
+# Draws Box for subarrays  
+def DrawBox(t, x, y, height, color):
+    # Set up number the number of the box
+    t.penup()
+    t.goto(x, y + 1)
+    t.forward(BOX_WIDTH/2.2)
+    t.left(90)
+    t.forward(BOX_HEIGHT/3)
+    t.right(90)
+    t.write(str(height))
+    t.right(180)
+    t.forward(BOX_WIDTH/2.2)
+    t.left(90)
+    t.forward(BOX_HEIGHT/3)
+    t.left(90)
+    # Create the Box
+    t.pendown()
+    t.forward(BOX_WIDTH)
+    t.left(90)
+    t.forward(2)
+    t.left(90)
+    t.forward(BOX_WIDTH)
+    t.left(90) 
+    t.forward(2)
+    t.left(90) 
 
 # Set up the screen for creating the animation
-
 
 def InitScreen():
     # Creates a title for the screen's window
