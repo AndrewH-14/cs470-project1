@@ -53,21 +53,34 @@ def Merge(lower_idx, middle_idx, upper_idx):
     # Compare elements from either side of the array and add the smaller one to the
     # sorted array
     while left_iter <= middle_idx and right_iter <= upper_idx:
+        # Draw the current position of left_iter and right_iter
+        DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], 'red')
+        DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], 'blue')
+        screen.update()
+        time.sleep(bar_coloring_speed)
         if data[left_iter] <= data[right_iter]:
             sorted_data.append(data[left_iter])
             left_iter += 1
+            DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], DEFAULT_BAR_COLOR)
         else:
             sorted_data.append(data[right_iter])
             right_iter += 1
+            DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], DEFAULT_BAR_COLOR)
 
     # Add any leftover values from the left side of the array to the sorted array
     while left_iter <= middle_idx:
+        DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], 'red')
+        screen.update()
         sorted_data.append(data[left_iter])
         left_iter += 1
+        DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], DEFAULT_BAR_COLOR)
     # Add any leftover values from the right side of the array to the sorted array
     while right_iter <= upper_idx:
+        DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], 'blue')
+        screen.update()
         sorted_data.append(data[right_iter])
         right_iter += 1
+        DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], DEFAULT_BAR_COLOR)
 
     # Copy the sorted integers back into the data array
     for idx in range(len(sorted_data)):
