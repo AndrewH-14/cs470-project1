@@ -22,6 +22,8 @@ SUBLIST_ONE_COLOR = "crimson"
 SUBLIST_TWO_COLOR = "white"
 MERGED_LIST_COLOR = "gold"
 COMPLETION_COLOR = "green"
+LEFT_ITERATOR_COLOR = "light green"
+RIGHT_ITERATOR_COLOR = "light blue"
 SCREEN_BACKGROUND = "light gray"
 SCREEN_BORDER = 10
 BAR_WIDTH = 10
@@ -54,33 +56,33 @@ def Merge(lower_idx, middle_idx, upper_idx):
     # sorted array
     while left_iter <= middle_idx and right_iter <= upper_idx:
         # Draw the current position of left_iter and right_iter
-        DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], 'red')
-        DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], 'blue')
+        DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], LEFT_ITERATOR_COLOR)
+        DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], RIGHT_ITERATOR_COLOR)
         screen.update()
         time.sleep(bar_coloring_speed)
         if data[left_iter] <= data[right_iter]:
             sorted_data.append(data[left_iter])
             left_iter += 1
-            DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], DEFAULT_BAR_COLOR)
+            DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
         else:
             sorted_data.append(data[right_iter])
             right_iter += 1
-            DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], DEFAULT_BAR_COLOR)
+            DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
     # Add any leftover values from the left side of the array to the sorted array
     while left_iter <= middle_idx:
-        DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], 'red')
+        DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], LEFT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[left_iter])
         left_iter += 1
-        DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], DEFAULT_BAR_COLOR)
+        DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
     # Add any leftover values from the right side of the array to the sorted array
     while right_iter <= upper_idx:
-        DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], 'blue')
+        DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], RIGHT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[right_iter])
         right_iter += 1
-        DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], DEFAULT_BAR_COLOR)
+        DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
     # Copy the sorted integers back into the data array
     for idx in range(len(sorted_data)):
