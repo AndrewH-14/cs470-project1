@@ -27,8 +27,8 @@ RIGHT_ITERATOR_COLOR = "light blue"
 SCREEN_BACKGROUND = "light gray"
 SCREEN_BORDER = 10
 BAR_WIDTH = 10
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 700
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1080
 BOX_WIDTH = 10
 BOX_HEIGHT = 2
 
@@ -138,8 +138,8 @@ def DrawBar(t, x, y, height, color):
     t.end_fill()
     t.left(180)
     t.forward(BAR_WIDTH)
-    
-# Draws Box for subarrays  
+
+# Draws Box for subarrays
 def DrawBox(t, x, y, height, color):
     # Set up number the number of the box
     t.penup()
@@ -161,9 +161,9 @@ def DrawBox(t, x, y, height, color):
     t.forward(2)
     t.left(90)
     t.forward(BOX_WIDTH)
-    t.left(90) 
+    t.left(90)
     t.forward(2)
-    t.left(90) 
+    t.left(90)
 
 # Set up the screen for creating the animation
 

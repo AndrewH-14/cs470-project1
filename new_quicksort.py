@@ -29,40 +29,59 @@ LEFT_PIVOT_SUBLIST_COLOR = "white"
 RIGHT_PIVOT_SUBLIST_COLOR = "crimson"
 SCREEN_BORDER = 10
 BAR_WIDTH = 10
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1080
 
 
 def Partition(all_input_nums, left_idx, right_idx):
-    # Get the index of the element currently next to the pivot
+    # Index will be incremented before use so set it to left_idx
     less_than_idx = left_idx - 1
+
+    # Write a message explaining that the subarray is being sorted
+    # around the pivot element
+    WriteDescription("Sorting the sublist using the pivot element...",
+                     DESCRIPTION_COLOR)
 
     # Compare each element to the pivot element
     pivot_element = all_input_nums[right_idx]
     for idx in range(left_idx, right_idx):
         if all_input_nums[idx] < pivot_element:
+            # Increment where the next value less than the pivot should go
             less_than_idx += 1
-            all_input_nums[idx], all_input_nums[less_than_idx] = all_input_nums[less_than_idx], all_input_nums[idx]
-    # Put the pivot element in it's correct position
-    all_input_nums[less_than_idx +
-                   1], all_input_nums[right_idx] = all_input_nums[right_idx], all_input_nums[less_than_idx + 1]
+            # Swap the value less than the pivot to the left side of the subarray
+            all_input_nums[idx], all_input_nums[less_than_idx] = \
+            all_input_nums[less_than_idx], all_input_nums[idx]
 
-    WriteDescription(
-        "Sorting the sublist using the pivot element...", DESCRIPTION_COLOR)
+    # Put the pivot element in its correct position
+    all_input_nums[less_than_idx + 1], all_input_nums[right_idx] = \
+    all_input_nums[right_idx], all_input_nums[less_than_idx + 1]
 
-    # Show the two sides we sorted based on the pivot
+    # Show the section of the array that was less than the pivot element
     for idx in range(left_idx, less_than_idx + 1):
         turtles[idx].clear()
-        DrawBar(turtles[idx], BAR_WIDTH * idx, 0,
-                all_input_nums[idx], LEFT_PIVOT_SUBLIST_COLOR)
+        DrawBar(turtles[idx],
+                BAR_WIDTH * idx,
+                0,
+                all_input_nums[idx],
+                LEFT_PIVOT_SUBLIST_COLOR)
         screen.update()
         time.sleep(bar_coloring_speed)
+    # Show the pivot element
     turtles[less_than_idx + 1].clear()
-    DrawBar(turtles[less_than_idx + 1], BAR_WIDTH * (less_than_idx + 1),
-            0, all_input_nums[less_than_idx + 1], PIVOT_COLOR)
+    DrawBar(turtles[less_than_idx + 1],
+            BAR_WIDTH * (less_than_idx + 1),
+            0,
+            all_input_nums[less_than_idx + 1],
+            PIVOT_COLOR)
     screen.update()
+    # Show the section of the array that was greater than the pivot element
     for idx in range(less_than_idx + 2, right_idx + 1):
         turtles[idx].clear()
-        DrawBar(turtles[idx], BAR_WIDTH * idx, 0,
-                all_input_nums[idx], RIGHT_PIVOT_SUBLIST_COLOR)
+        DrawBar(turtles[idx],
+                BAR_WIDTH * idx,
+                0,
+                all_input_nums[idx],
+                RIGHT_PIVOT_SUBLIST_COLOR)
         screen.update()
         time.sleep(bar_coloring_speed)
     time.sleep(pause_length)
@@ -72,20 +91,26 @@ def Partition(all_input_nums, left_idx, right_idx):
 
 
 def RandomPartition(all_input_nums, left_idx, right_idx):
+    # Get a random pivot index in order to partition the section of the array
     pivot_idx = random.randint(left_idx, right_idx)
 
+    # Indicate that we have selected a random pivot element to use
     WriteDescription("Selecting the random pivot element...",
                      DESCRIPTION_COLOR)
 
     # Show the pivot element that we selected
     turtles[pivot_idx].clear()
-    DrawBar(turtles[pivot_idx], BAR_WIDTH * pivot_idx,
-            0, all_input_nums[pivot_idx], PIVOT_COLOR)
+    DrawBar(turtles[pivot_idx],
+            BAR_WIDTH * pivot_idx,
+            0,
+            all_input_nums[pivot_idx],
+            PIVOT_COLOR)
     screen.update()
     time.sleep(pause_length)
 
     # Move the pivot to the far right hand side of the partition
-    all_input_nums[pivot_idx], all_input_nums[right_idx] = all_input_nums[right_idx], all_input_nums[pivot_idx]
+    all_input_nums[pivot_idx], all_input_nums[right_idx] = \
+    all_input_nums[right_idx], all_input_nums[pivot_idx]
 
     # Now that the pivot element is in the last index, sort the partition based on it's value
     return Partition(all_input_nums, left_idx, right_idx)
@@ -99,10 +124,12 @@ def QuickSort(all_input_nums, left_idx, right_idx, k_val):
     # Show the section we are working on
     for idx in range(left_idx, right_idx + 1):
         turtles[idx].clear()
-        DrawBar(turtles[idx], BAR_WIDTH * idx, 0,
-                all_input_nums[idx], ARRAY_SUBLIST_COLOR)
-        screen.update()
-        time.sleep(bar_coloring_speed)
+        DrawBar(turtles[idx],
+                BAR_WIDTH * idx,
+                0,
+                all_input_nums[idx],
+                ARRAY_SUBLIST_COLOR)
+    screen.update()
     time.sleep(pause_length)
 
     # Sort the array around a random pivot then return the pivot's index
@@ -165,7 +192,6 @@ def BeginSorting():
 
     # Start the quick sort algorithm
     QuickSort(all_input_nums, 0, len(all_input_nums) - 1, k_val)
-    print(all_input_nums)
 
     # Write the completion status message to the screen
     WriteStatus("Complete", COMPLETION_COLOR)
@@ -177,8 +203,11 @@ def BeginSorting():
     # Show the top k integers in the data list
     for idx in range(len(all_input_nums) - k_val, len(all_input_nums)):
         turtles[idx].clear()
-        DrawBar(turtles[idx], BAR_WIDTH * idx, 0,
-                all_input_nums[idx], COMPLETION_COLOR)
+        DrawBar(turtles[idx],
+                BAR_WIDTH * idx,
+                0,
+                all_input_nums[idx],
+                COMPLETION_COLOR)
         screen.update()
         time.sleep(bar_coloring_speed)
 
@@ -190,10 +219,10 @@ def WriteStatus(status_message, color):
     status_writer.color(color)
     status_writer.penup()
     status_writer.goto((BAR_WIDTH * len(all_input_nums)) / 2,
-                       (max(all_input_nums) + SCREEN_BORDER) / 1.1)
+                       (max(all_input_nums) + SCREEN_BORDER) / 1.05)
     status_writer.pendown()
     status_writer.write(status_message, False, align="center",
-                        font=('Courier', 25, 'bold'))
+                        font=('Courier', 30, 'bold'))
     status_writer.penup()
     screen.update()
 
@@ -201,16 +230,18 @@ def WriteStatus(status_message, color):
 def LegendLabel(color, position, label):
 
     # Draw label
-    legend_writer.goto((-145) /
-                       2, (max(all_input_nums) + SCREEN_BORDER) / position)
+    legend_writer.goto(12.5,
+                       32.7 + ((max(all_input_nums) + SCREEN_BORDER) / position) / 5)
     status_writer.pendown()
-    legend_writer.write(label, False, align="left",
+    legend_writer.write(label,
+                        False,
+                        align="left",
                         font=('Courier', 14))
     legend_writer.penup()
 
     # Draw color
-    legend_writer.goto((-50) /
-                       2, 1 + (max(all_input_nums) + SCREEN_BORDER) / position)
+    legend_writer.goto(0,
+                       33.5 + ((max(all_input_nums) + SCREEN_BORDER) / position) / 5)
     legend_writer.fillcolor(color)
     legend_writer.begin_fill()
     legend_writer.forward(10)
@@ -232,8 +263,8 @@ def DrawLegend(color):
     legend_writer.penup()
 
     # Draw legend square
-    legend_writer.goto((-150) /
-                       2, (max(all_input_nums) + SCREEN_BORDER) / 1.01)
+    legend_writer.goto(-5,
+                       (max(all_input_nums) + SCREEN_BORDER) / 1.05)
     legend_writer.pendown()
     legend_writer.width(4)
     legend_writer.forward(65)  # Forward turtle by 50 units
@@ -247,19 +278,22 @@ def DrawLegend(color):
     legend_writer.penup()
 
     # Draw legend Title
-    legend_writer.goto((-100) /
-                       2, (max(all_input_nums) + SCREEN_BORDER) / 1.07)
+    legend_writer.goto(27.5,
+                       (max(all_input_nums) + SCREEN_BORDER) / 1.075)
+    print((max(all_input_nums) + SCREEN_BORDER) / 1.1)
     status_writer.pendown()
-    legend_writer.write("Legend", False, align="center",
+    legend_writer.write("Legend",
+                        False,
+                        align="center",
                         font=('Courier', 15, 'bold'))
     legend_writer.penup()
 
     # Draw legend labels
-    LegendLabel(PIVOT_COLOR, 1.125, "Pivot")
-    LegendLabel(ARRAY_SUBLIST_COLOR, 1.1875, "Sublist")
-    LegendLabel(RIGHT_PIVOT_SUBLIST_COLOR, 1.25, "Greater than pivot")
-    LegendLabel(LEFT_PIVOT_SUBLIST_COLOR, 1.325, "Less than pivot")
-    LegendLabel(COMPLETION_COLOR, 1.41, "Top " + str(k_val) + " Integers")
+    LegendLabel(PIVOT_COLOR, 1.125 / 2, "Pivot")
+    LegendLabel(ARRAY_SUBLIST_COLOR, 1.1875 / 2, "Sublist")
+    LegendLabel(RIGHT_PIVOT_SUBLIST_COLOR, 1.25 / 2, "Greater than pivot")
+    LegendLabel(LEFT_PIVOT_SUBLIST_COLOR, 1.325 / 2, "Less than pivot")
+    LegendLabel(COMPLETION_COLOR, 1.41 / 2, "Top " + str(k_val) + " Integers")
     screen.update()
 
 
@@ -270,11 +304,13 @@ def WriteDescription(description_message, color):
     description_writer.color(color)
     description_writer.penup()
     description_writer.goto(BAR_WIDTH * len(all_input_nums) / 2,
-                            (max(all_input_nums) + SCREEN_BORDER) / 1.2)
+                            (max(all_input_nums) + SCREEN_BORDER) / 1.1)
     description_writer.pendown()
     description_writer.color(color)
-    description_writer.write(description_message, False,
-                             align="center", font=('Courier', 20, 'bold'))
+    description_writer.write(description_message,
+                             False,
+                             align="center",
+                             font=('Courier', 25, 'bold'))
     description_writer.penup()
     screen.update()
 
@@ -283,7 +319,7 @@ def InitScreen():
     # Creates a title for the screen's window
     screen.title("Quick Select Algorithm")
     # Sets the height and width of the turtle window
-    screen.setup(1000, 700)
+    screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
     # Sets the screens background color
     screen.bgcolor(SCREEN_BACKGROUND)
     # Turns of the screen's auto update feature
@@ -338,11 +374,14 @@ def main():
         franklin.pensize(3)
         franklin.hideturtle()
         franklin.speed("fastest")
-        DrawBar(franklin, BAR_WIDTH * idx, 0,
-                all_input_nums[idx], DEFAULT_BAR_COLOR)
+        DrawBar(franklin, BAR_WIDTH * idx,
+                0,
+                all_input_nums[idx],
+                DEFAULT_BAR_COLOR)
         turtles.append(franklin)
     screen.update()
 
+    # Prompt the user to pick what speed they want the algorithm to run at
     WriteStatus("Select a speed to begin sorting 1, 2, 3", STATUS_COLOR)
     screen.onkey(SetSpeedOne, "1")
     screen.onkey(SetSpeedTwo, "2")
