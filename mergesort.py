@@ -266,10 +266,10 @@ def DrawLegend(color):
     legend_writer.penup()
 
     # Draw legend labels
-    LegendLabel("crimson", 1.125, "Left Sublist")
-    LegendLabel("white", 1.1875, "Right Sublist")
-    LegendLabel("gold", 1.25, "Merged List")
-    LegendLabel("green", 1.325, "Top 3 Integers")
+    LegendLabel(SUBLIST_ONE_COLOR, 1.125, "Left Sublist")
+    LegendLabel(SUBLIST_TWO_COLOR, 1.1875, "Right Sublist")
+    LegendLabel(MERGED_LIST_COLOR, 1.25, "Merged List")
+    LegendLabel(COMPLETION_COLOR, 1.325, "Top " + str(k) + " Integers")
     screen.update()
 
 
