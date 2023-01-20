@@ -27,8 +27,8 @@ RIGHT_ITERATOR_COLOR = "light blue"
 SCREEN_BACKGROUND = "light gray"
 SCREEN_BORDER = 10
 BAR_WIDTH = 10
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 700
 BOX_WIDTH = 10
 BOX_HEIGHT = 2
 
@@ -62,10 +62,14 @@ def Merge(lower_idx, middle_idx, upper_idx):
         time.sleep(bar_coloring_speed)
         if data[left_iter] <= data[right_iter]:
             sorted_data.append(data[left_iter])
+            DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
+            screen.update()
             left_iter += 1
             DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
         else:
             sorted_data.append(data[right_iter])
+            DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
+            screen.update()
             right_iter += 1
             DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
@@ -74,6 +78,8 @@ def Merge(lower_idx, middle_idx, upper_idx):
         DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], LEFT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[left_iter])
+        DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
+        screen.update()
         left_iter += 1
         DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
     # Add any leftover values from the right side of the array to the sorted array
@@ -81,6 +87,8 @@ def Merge(lower_idx, middle_idx, upper_idx):
         DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], RIGHT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[right_iter])
+        DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
+        screen.update()
         right_iter += 1
         DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
@@ -138,8 +146,8 @@ def DrawBar(t, x, y, height, color):
     t.end_fill()
     t.left(180)
     t.forward(BAR_WIDTH)
-
-# Draws Box for subarrays
+    
+# Draws Box for subarrays  
 def DrawBox(t, x, y, height, color):
     # Set up number the number of the box
     t.penup()
@@ -161,9 +169,9 @@ def DrawBox(t, x, y, height, color):
     t.forward(2)
     t.left(90)
     t.forward(BOX_WIDTH)
-    t.left(90)
+    t.left(90) 
     t.forward(2)
-    t.left(90)
+    t.left(90) 
 
 # Set up the screen for creating the animation
 
@@ -264,7 +272,7 @@ def LegendLabel(color, position, label):
     legend_writer.penup()
 
     # Draw color
-    legend_writer.goto((75) /
+    legend_writer.goto((130) /
                        2, 1 + (max(data) + SCREEN_BORDER) / position)
     legend_writer.fillcolor(color)
     legend_writer.begin_fill()
@@ -291,18 +299,18 @@ def DrawLegend(color):
                        2, (max(data) + SCREEN_BORDER) / 1.01)
     legend_writer.pendown()
     legend_writer.width(4)
-    legend_writer.forward(50)  # Forward turtle by 50 units
+    legend_writer.forward(80)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(7.5)  # Forward turtle by 7 units
+    legend_writer.forward(20.75)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(50)  # Forward turtle by 50 units
+    legend_writer.forward(80)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(7.5)  # Forward turtle by 7 units
+    legend_writer.forward(20.75)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
     legend_writer.penup()
 
     # Draw legend Title
-    legend_writer.goto((50) /
+    legend_writer.goto((80) /
                        2, (max(data) + SCREEN_BORDER) / 1.07)
     status_writer.pendown()
     legend_writer.write("Legend", False, align="center",
@@ -314,6 +322,8 @@ def DrawLegend(color):
     LegendLabel(SUBLIST_TWO_COLOR, 1.1875, "Right Sublist")
     LegendLabel(MERGED_LIST_COLOR, 1.25, "Merged List")
     LegendLabel(COMPLETION_COLOR, 1.325, "Top " + str(k) + " Integers")
+    LegendLabel(LEFT_ITERATOR_COLOR, 1.405, "Left Iterator")
+    LegendLabel(RIGHT_ITERATOR_COLOR, 1.485, "Right Iterator")
     screen.update()
 
 
