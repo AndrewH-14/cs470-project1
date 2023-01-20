@@ -106,22 +106,30 @@ def DrawBar(t, x, y, height, color):
     t.fillcolor(color)
     t.setheading(0)
     t.penup()
-    t.goto(x, y)
+    t.goto(x, y + 5)
     t.pendown()
     t.begin_fill()
     t.left(90)
-    t.forward(height)
+    t.forward(height/2)
     t.right(90)
     t.forward(BAR_WIDTH / 2)
     t.write(str(height))
     t.forward(BAR_WIDTH / 2)
     t.right(90)
-    t.forward(height)
-    t.left(90)
+    t.forward(height/2)
+    t.right(90)
+    t.forward(BAR_WIDTH)
     t.end_fill()
+    t.left(180)
+    t.forward(BAR_WIDTH)
+    
+# Draws Box for subarrays  
+def DrawBox(t, x, y, height, color):
+    for _ in range(4):
+        t.forward(2) # Forward turtle by s units
+        t.left(90) # Turn turtle by 90 degree
 
 # Set up the screen for creating the animation
-
 
 def InitScreen():
     # Creates a title for the screen's window
