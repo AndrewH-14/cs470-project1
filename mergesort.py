@@ -31,6 +31,8 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
 BOX_WIDTH = 10
 BOX_HEIGHT = 2
+LEGEND_HEIGHT = 20.75
+LEGEND_WIDTH = 80
 
 def Merge(lower_idx, middle_idx, upper_idx):
     sorted_data = []
@@ -64,6 +66,7 @@ def Merge(lower_idx, middle_idx, upper_idx):
             sorted_data.append(data[left_iter])
             # Draw the current sorted array
             DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
+            time.sleep(bar_coloring_speed)
             screen.update()
             left_iter += 1
             # Draw the updated position of the left_iter
@@ -72,6 +75,7 @@ def Merge(lower_idx, middle_idx, upper_idx):
             sorted_data.append(data[right_iter])
             # Draw the current sorted array
             DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
+            time.sleep(bar_coloring_speed)
             screen.update()
             right_iter += 1
             # Draw the updated position of the right_iter
@@ -85,6 +89,7 @@ def Merge(lower_idx, middle_idx, upper_idx):
         sorted_data.append(data[left_iter])
         # Draw the current sorted array
         DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
+        time.sleep(bar_coloring_speed)
         screen.update()
         left_iter += 1
         # Recolor the first subarray after the pass of the left_iter
@@ -97,6 +102,7 @@ def Merge(lower_idx, middle_idx, upper_idx):
         sorted_data.append(data[right_iter])
         # Draw the current sorted array
         DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
+        time.sleep(bar_coloring_speed)
         screen.update()
         right_iter += 1
         # Recolor the second subarray after the pass of the right_iter
@@ -161,26 +167,26 @@ def DrawBar(t, x, y, height, color):
 def DrawBox(t, x, y, height, color):
     # Set up number the number of the box
     t.penup()
-    t.goto(x, y + 1)
-    t.forward(BOX_WIDTH/2.2)
+    t.goto(x, y + 1.2)
+    t.forward(BOX_WIDTH/3)
     t.left(90)
-    t.forward(BOX_HEIGHT/3)
+    t.forward(BOX_HEIGHT/4)
     t.right(90)
     t.write(str(height))
     t.right(180)
-    t.forward(BOX_WIDTH/2.2)
+    t.forward(BOX_WIDTH/3)
     t.left(90)
-    t.forward(BOX_HEIGHT/3)
+    t.forward(BOX_HEIGHT/4)
     t.left(90)
     # Create the Box
     t.pendown()
     t.forward(BOX_WIDTH)
     t.left(90)
-    t.forward(2)
+    t.forward(1.8)
     t.left(90)
     t.forward(BOX_WIDTH)
     t.left(90) 
-    t.forward(2)
+    t.forward(1.8)
     t.left(90) 
 
 # Set up the screen for creating the animation
@@ -309,13 +315,13 @@ def DrawLegend(color):
                        2, (max(data) + SCREEN_BORDER) / 1.01)
     legend_writer.pendown()
     legend_writer.width(4)
-    legend_writer.forward(80)  # Forward turtle by 50 units
+    legend_writer.forward(LEGEND_WIDTH)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(20.75)  # Forward turtle by 7 units
+    legend_writer.forward(LEGEND_HEIGHT)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(80)  # Forward turtle by 50 units
+    legend_writer.forward(LEGEND_WIDTH)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(20.75)  # Forward turtle by 7 units
+    legend_writer.forward(LEGEND_HEIGHT)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
     legend_writer.penup()
 
