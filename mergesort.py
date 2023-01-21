@@ -144,7 +144,7 @@ def MergeSort(lower_idx, upper_idx):
 
 def DrawBar(t, x, y, height, color):
     t.fillcolor(color)
-    #t.setheading(0)
+    t.setheading(0)
     t.penup()
     t.goto(x, y + 5)
     t.pendown()
