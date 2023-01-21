@@ -55,41 +55,51 @@ def Merge(lower_idx, middle_idx, upper_idx):
     # Compare elements from either side of the array and add the smaller one to the
     # sorted array
     while left_iter <= middle_idx and right_iter <= upper_idx:
-        # Draw the current position of left_iter and right_iter
+        # Draw the current position of the left_iter and right_iter
         DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], LEFT_ITERATOR_COLOR)
         DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], RIGHT_ITERATOR_COLOR)
         screen.update()
         time.sleep(bar_coloring_speed)
         if data[left_iter] <= data[right_iter]:
             sorted_data.append(data[left_iter])
+            # Draw the current sorted array
             DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
             screen.update()
             left_iter += 1
+            # Draw the updated position of the left_iter
             DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
         else:
             sorted_data.append(data[right_iter])
+            # Draw the current sorted array
             DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
             screen.update()
             right_iter += 1
+            # Draw the updated position of the right_iter
             DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
     # Add any leftover values from the left side of the array to the sorted array
     while left_iter <= middle_idx:
+        # Draw the updated position of the left_iter
         DrawBar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], LEFT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[left_iter])
+        # Draw the current sorted array
         DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
         screen.update()
         left_iter += 1
+        # Recolor the first subarray after the pass of the left_iter
         DrawBar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
     # Add any leftover values from the right side of the array to the sorted array
     while right_iter <= upper_idx:
+        # Draw the updated position of the right_iter
         DrawBar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], RIGHT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[right_iter])
+        # Draw the current sorted array
         DrawBox(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
         screen.update()
         right_iter += 1
+        # Recolor the second subarray after the pass of the right_iter
         DrawBar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
     # Copy the sorted integers back into the data array
