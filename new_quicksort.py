@@ -138,8 +138,11 @@ def QuickSort(all_input_nums, left_idx, right_idx, k_val):
     # Reset the bar's back to their default color
     for idx in range(left_idx, right_idx + 1):
         turtles[idx].clear()
-        DrawBar(turtles[idx], BAR_WIDTH * idx, 0,
-                all_input_nums[idx], DEFAULT_BAR_COLOR)
+        DrawBar(turtles[idx],
+                BAR_WIDTH * idx,
+                0,
+                all_input_nums[idx],
+                DEFAULT_BAR_COLOR)
     screen.update()
     time.sleep(pause_length)
 
@@ -155,7 +158,7 @@ def QuickSort(all_input_nums, left_idx, right_idx, k_val):
     else:
         return
 
-
+# Use the slowest speed when running the program
 def SetSpeedOne():
     global bar_coloring_speed
     global pause_length
@@ -164,6 +167,7 @@ def SetSpeedOne():
     BeginSorting()
 
 
+# Use the middle speed when running the program
 def SetSpeedTwo():
     global bar_coloring_speed
     global pause_length
@@ -172,6 +176,7 @@ def SetSpeedTwo():
     BeginSorting()
 
 
+# Use the fasted speed when running the program
 def SetSpeedThree():
     global bar_coloring_speed
     global pause_length
@@ -180,6 +185,8 @@ def SetSpeedThree():
     BeginSorting()
 
 
+# Function that will kick off the sorting process, should be called after the
+# speed has been set
 def BeginSorting():
     # Turn off the onkey property so the sorting is not accidently restarted
     screen.onkey(None, "1")
@@ -267,18 +274,18 @@ def DrawLegend(color):
                        (max(all_input_nums) + SCREEN_BORDER) / 1.05)
     legend_writer.pendown()
     legend_writer.width(4)
-    legend_writer.forward(65)  # Forward turtle by 50 units
+    legend_writer.forward(70)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
     legend_writer.forward(9)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(65)  # Forward turtle by 50 units
+    legend_writer.forward(70)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
     legend_writer.forward(9)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
     legend_writer.penup()
 
     # Draw legend Title
-    legend_writer.goto(27.5,
+    legend_writer.goto(32.5,
                        (max(all_input_nums) + SCREEN_BORDER) / 1.075)
     print((max(all_input_nums) + SCREEN_BORDER) / 1.1)
     status_writer.pendown()
