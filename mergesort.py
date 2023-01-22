@@ -2,9 +2,9 @@ import turtle
 import time
 
 # Global data variables used in various functions
-data = []
+data = [22,15,6,13,23,41,12,24,8,2,48,19,45,28,21,25,32,44,11,27,33,1,37,20,9,14,5,36,50,47,34,17,29,7,31,16,4,39,43,10,38,3,35,30,42,18,40,26,46,49]
 turtles = []
-k = 0
+k = 3
 bar_coloring_speed = 0
 pause_length = 0
 
@@ -358,14 +358,7 @@ def WriteDescription(description_message, color):
 
 def main():
     # Initialize the global data variables that will be used in various functions
-    global data
     global turtles
-    global k
-    file = open("unsorted_input.txt", "r")
-    data_string = file.readline()
-    k = int(file.readline())
-    data_string_array = data_string.split(',')
-    data = [int(x) for x in data_string_array]
 
     # Initialize the turtle's screen
     InitScreen()

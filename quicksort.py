@@ -5,9 +5,9 @@ import turtle
 import time
 
 # Create a global data array so that all the functions can access it
-all_input_nums = list()
+all_input_nums = [22,15,6,13,23,41,12,24,8,2,48,19,45,28,21,25,32,44,11,27,33,1,37,20,9,14,5,36,50,47,34,17,29,7,31,16,4,39,43,10,38,3,35,30,42,18,40,26,46,49]
 turtles = []
-k_val = 0
+k_val = 3
 bar_coloring_speed = 0
 pause_length = 0
 
@@ -360,17 +360,7 @@ def DrawBar(t, x, y, height, color):
 
 def main():
     # Initialize the global data variables that will be used in various functions
-    global k_val
     global turtles
-    global all_input_nums
-    file = open(f'{"unsorted_input.txt"}')
-    csv_reader = csv.reader(file)
-    data = list()
-    for line in csv_reader:
-        data.append(line)
-    for num in data[0]:
-        all_input_nums.append(int(num))
-    k_val = int(data[1][0])
 
     # Initialize the turtle's screen
     InitScreen()
