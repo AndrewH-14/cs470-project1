@@ -274,13 +274,13 @@ def DrawLegend(color):
                        (max(all_input_nums) + SCREEN_BORDER) / 1.05)
     legend_writer.pendown()
     legend_writer.width(4)
-    legend_writer.forward(70)  # Forward turtle by 50 units
+    legend_writer.forward(87)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(9)  # Forward turtle by 7 units
+    legend_writer.forward(8)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(70)  # Forward turtle by 50 units
+    legend_writer.forward(87)  # Forward turtle by 50 units
     legend_writer.right(90)  # Turn turtle by 90 degree
-    legend_writer.forward(9)  # Forward turtle by 7 units
+    legend_writer.forward(8)  # Forward turtle by 7 units
     legend_writer.right(90)  # Turn turtle by 90 degree
     legend_writer.penup()
 
@@ -317,7 +317,7 @@ def WriteDescription(description_message, color):
     description_writer.write(description_message,
                              False,
                              align="center",
-                             font=('Courier', 25, 'bold'))
+                             font=('Courier', 20, 'bold'))
     description_writer.penup()
     screen.update()
 
