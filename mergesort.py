@@ -1,3 +1,4 @@
+# Created By: Andrew Hankins, Joey Walker, Brandon Jones, Robert Melton, and Luke Roberts
 import turtle
 import time
 
