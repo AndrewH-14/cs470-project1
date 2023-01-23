@@ -1,4 +1,4 @@
-# Created By: Andrew Hankins, Joey Walker, Brandon Jones, Robert Melton, and Luke Roberts
+# Created By DSS: Andrew Hankins, Joey Walker, Brandon Jones, Robert Melton, and Luke Roberts
 import turtle
 import time
 
@@ -35,6 +35,9 @@ BOX_HEIGHT = 2
 LEGEND_HEIGHT = 20.75
 LEGEND_WIDTH = 80
 
+# The merge function combines two subarrays into a single,
+# larger sorted array by continuously selecting the smallest element from
+# the beginning of both subarrays, until all elements have been exhausted
 def Merge(lower_idx, middle_idx, upper_idx):
     sorted_data = []
     left_iter = lower_idx
@@ -126,9 +129,8 @@ def Merge(lower_idx, middle_idx, upper_idx):
     screen.update()
     time.sleep(pause_length)
 
-# Recursive function to sort sections of the array
-
-
+# Mergesort works by dividing an array into two subarrays, sorting them 
+# recursively and then merging them back into a single, sorted array
 def MergeSort(lower_idx, upper_idx):
     if lower_idx >= upper_idx:
         return
@@ -138,8 +140,6 @@ def MergeSort(lower_idx, upper_idx):
     Merge(lower_idx, middle_idx, upper_idx)
 
 # Draws a bar assuming the turtle is facing east
-
-
 def DrawBar(t, x, y, height, color):
     t.fillcolor(color)
     t.setheading(0)
@@ -161,9 +161,9 @@ def DrawBar(t, x, y, height, color):
     t.left(180)
     t.forward(BAR_WIDTH)
 
-# Draws Box for subarrays
+# Draws a Box for an element in the subarray
 def DrawBox(t, x, y, height, color):
-    # Set up number the number of the box
+    # Set up number the number inside the box
     t.penup()
     t.goto(x, y + 1.2)
     t.forward(BOX_WIDTH/3)
@@ -188,7 +188,6 @@ def DrawBox(t, x, y, height, color):
     t.left(90)
 
 # Set up the screen for creating the animation
-
 def InitScreen():
     # Creates a title for the screen's window
     screen.title("Merge Sort Algorithm")
@@ -205,7 +204,7 @@ def InitScreen():
                                BAR_WIDTH * len(data) + SCREEN_BORDER,
                                max(data) + SCREEN_BORDER)
 
-
+# Sets the animation speed of the program to the slowest option
 def SetSpeedOne():
     global bar_coloring_speed
     global pause_length
@@ -213,7 +212,7 @@ def SetSpeedOne():
     pause_length = 1
     BeginSorting()
 
-
+# Sets the animation speed of the program to the medium speed option
 def SetSpeedTwo():
     global bar_coloring_speed
     global pause_length
@@ -221,7 +220,7 @@ def SetSpeedTwo():
     pause_length = 0.5
     BeginSorting()
 
-
+# Sets the animation speed of the program to the fastest option
 def SetSpeedThree():
     global bar_coloring_speed
     global pause_length
@@ -239,7 +238,7 @@ def BeginSorting():
     # Write the sorting status message to the screen
     WriteStatus("Sorting...", STATUS_COLOR)
 
-    # D
+    # Draw the legend border and contents
     DrawLegend(STATUS_COLOR)
 
     # Start the merge sort algorithm
@@ -259,7 +258,7 @@ def BeginSorting():
         screen.update()
         time.sleep(bar_coloring_speed)
 
-
+# Write a status of what is going on with the animation
 def WriteStatus(status_message, color):
     status_writer.clear()
     status_writer.hideturtle()
@@ -274,10 +273,10 @@ def WriteStatus(status_message, color):
     status_writer.penup()
     screen.update()
 
-
+# Adds an element and color block to the legend
 def LegendLabel(color, position, label):
 
-    # Draw label
+    # Draw label in the legend
     legend_writer.goto((5) /
                        2, (max(data) + SCREEN_BORDER) / position)
     status_writer.pendown()
@@ -285,7 +284,7 @@ def LegendLabel(color, position, label):
                         font=('Courier', 14))
     legend_writer.penup()
 
-    # Draw color
+    # Draw color in the legend
     legend_writer.goto((130) /
                        2, 1 + (max(data) + SCREEN_BORDER) / position)
     legend_writer.fillcolor(color)
@@ -300,7 +299,7 @@ def LegendLabel(color, position, label):
     legend_writer.right(90)
     legend_writer.end_fill()
 
-
+# Draw the legend border and contents
 def DrawLegend(color):
     legend_writer.clear()
     legend_writer.hideturtle()
@@ -308,7 +307,7 @@ def DrawLegend(color):
     legend_writer.color(color)
     legend_writer.penup()
 
-    # Draw legend square
+    # Draw legend rectangle
     legend_writer.goto((0) /
                        2, (max(data) + SCREEN_BORDER) / 1.01)
     legend_writer.pendown()
@@ -323,7 +322,7 @@ def DrawLegend(color):
     legend_writer.right(90)  # Turn turtle by 90 degree
     legend_writer.penup()
 
-    # Draw legend Title
+    # Draw legend title
     legend_writer.goto((80) /
                        2, (max(data) + SCREEN_BORDER) / 1.07)
     status_writer.pendown()
@@ -340,7 +339,7 @@ def DrawLegend(color):
     LegendLabel(RIGHT_ITERATOR_COLOR, 1.485, "Right Iterator")
     screen.update()
 
-
+# Write a description of what is going on with the animation
 def WriteDescription(description_message, color):
     description_writer.clear()
     description_writer.hideturtle()
@@ -356,7 +355,11 @@ def WriteDescription(description_message, color):
     description_writer.penup()
     screen.update()
 
-
+# The main function initializes global variables used in the various functions, 
+# initializes the turtle screen, creates the initial bar graph using the data list,
+# prompts the user to select a speed at which the program is animated,
+# and keeps the turtle screen open until the window is closed. 
+# It calls three functions: InitScreen(), DrawBar(), and WriteStatus().
 def main():
     # Initialize the global data variables that will be used in various functions
     global turtles
@@ -374,6 +377,7 @@ def main():
         turtles.append(franklin)
     screen.update()
 
+    # Prompt to select the speed at which the program is animated
     WriteStatus("Select a speed to begin sorting 1, 2, 3", STATUS_COLOR)
     screen.onkey(SetSpeedOne, "1")
     screen.onkey(SetSpeedTwo, "2")
