@@ -228,7 +228,9 @@ def SetSpeedThree():
     pause_length = 0.25
     BeginSorting()
 
-
+# Disables changing animation speed, writes the sorting status,
+# begins the Mergesort() algorithm, writes the amount of the top integers
+# written to the screen, and visualizes the top k elements.
 def BeginSorting():
     # Turn off the onkey property so the sorting is not accidently restarted
     screen.onkey(None, "1")
