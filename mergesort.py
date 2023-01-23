@@ -28,8 +28,8 @@ RIGHT_ITERATOR_COLOR = "light blue"
 SCREEN_BACKGROUND = "light gray"
 SCREEN_BORDER = 10
 BAR_WIDTH = 10
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
+SCREEN_WIDTH_PERCENT = 0.9
+SCREEN_HEIGHT_PERCENT = 0.9
 BOX_WIDTH = 10
 BOX_HEIGHT = 2
 LEGEND_HEIGHT = 20.75
@@ -129,7 +129,7 @@ def Merge(lower_idx, middle_idx, upper_idx):
     screen.update()
     time.sleep(pause_length)
 
-# Mergesort works by dividing an array into two subarrays, sorting them 
+# Mergesort works by dividing an array into two subarrays, sorting them
 # recursively and then merging them back into a single, sorted array
 def MergeSort(lower_idx, upper_idx):
     if lower_idx >= upper_idx:
@@ -192,7 +192,7 @@ def InitScreen():
     # Creates a title for the screen's window
     screen.title("Merge Sort Algorithm")
     # Sets the height and width of the turtle window
-    screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
+    screen.setup(width = SCREEN_WIDTH_PERCENT, height = SCREEN_HEIGHT_PERCENT)
     # Sets the screens background color
     screen.bgcolor(SCREEN_BACKGROUND)
     # Turns of the screen's auto update feature
@@ -357,10 +357,10 @@ def WriteDescription(description_message, color):
     description_writer.penup()
     screen.update()
 
-# The main function initializes global variables used in the various functions, 
+# The main function initializes global variables used in the various functions,
 # initializes the turtle screen, creates the initial bar graph using the data list,
 # prompts the user to select a speed at which the program is animated,
-# and keeps the turtle screen open until the window is closed. 
+# and keeps the turtle screen open until the window is closed.
 # It calls three functions: InitScreen(), DrawBar(), and WriteStatus().
 def main():
     # Initialize the global data variables that will be used in various functions
