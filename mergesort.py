@@ -3,7 +3,8 @@ import turtle
 import time
 
 # Global data variables used in various functions
-data = [22,15,6,13,23,41,12,24,8,2,48,19,45,28,21,25,32,44,11,27,33,1,37,20,9,14,5,36,50,47,34,17,29,7,31,16,4,39,43,10,38,3,35,30,42,18,40,26,46,49]
+data = [22, 15, 6, 13, 23, 41, 12, 24, 8, 2, 48, 19, 45, 28, 21, 25, 32, 44, 11, 27, 33, 1, 37, 20,
+        9, 14, 5, 36, 50, 47, 34, 17, 29, 7, 31, 16, 4, 39, 43, 10, 38, 3, 35, 30, 42, 18, 40, 26, 46, 49]
 turtles = []
 k = 3
 bar_coloring_speed = 0
@@ -38,6 +39,8 @@ LEGEND_WIDTH = 80
 # The merge function combines two subarrays into a single,
 # larger sorted array by continuously selecting the smallest element from
 # the beginning of both subarrays, until all elements have been exhausted
+
+
 def merge(lower_idx, middle_idx, upper_idx):
     sorted_data = []
     left_iter = lower_idx
@@ -48,10 +51,12 @@ def merge(lower_idx, middle_idx, upper_idx):
     # Indicate the two sections we are merging by their color
     for idx in range(lower_idx, middle_idx + 1):
         turtles[idx].clear()
-        draw_bar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], SUBLIST_ONE_COLOR)
+        draw_bar(turtles[idx], BAR_WIDTH * idx,
+                 0, data[idx], SUBLIST_ONE_COLOR)
     for idx in range(middle_idx + 1, upper_idx + 1):
         turtles[idx].clear()
-        draw_bar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], SUBLIST_TWO_COLOR)
+        draw_bar(turtles[idx], BAR_WIDTH * idx,
+                 0, data[idx], SUBLIST_TWO_COLOR)
     screen.update()
     time.sleep(pause_length)
 
@@ -59,55 +64,67 @@ def merge(lower_idx, middle_idx, upper_idx):
     # sorted array
     while left_iter <= middle_idx and right_iter <= upper_idx:
         # Draw the current position of the left_iter and right_iter
-        draw_bar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], LEFT_ITERATOR_COLOR)
-        draw_bar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], RIGHT_ITERATOR_COLOR)
+        draw_bar(turtles[left_iter], BAR_WIDTH * left_iter,
+                 0, data[left_iter], LEFT_ITERATOR_COLOR)
+        draw_bar(turtles[right_iter], BAR_WIDTH * right_iter,
+                 0, data[right_iter], RIGHT_ITERATOR_COLOR)
         screen.update()
         time.sleep(bar_coloring_speed)
         if data[left_iter] <= data[right_iter]:
             sorted_data.append(data[left_iter])
             # Draw the current sorted array
-            draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
+            draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH *
+                     (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
             time.sleep(bar_coloring_speed)
             screen.update()
             left_iter += 1
             # Draw the updated position of the left_iter
-            draw_bar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
+            draw_bar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1),
+                     0, data[left_iter-1], SUBLIST_ONE_COLOR)
         else:
             sorted_data.append(data[right_iter])
             # Draw the current sorted array
-            draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
+            draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH *
+                     (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
             time.sleep(bar_coloring_speed)
             screen.update()
             right_iter += 1
             # Draw the updated position of the right_iter
-            draw_bar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
+            draw_bar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1),
+                     0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
     # Add any leftover values from the left side of the array to the sorted array
     while left_iter <= middle_idx:
         # Draw the updated position of the left_iter
-        draw_bar(turtles[left_iter], BAR_WIDTH * left_iter, 0, data[left_iter], LEFT_ITERATOR_COLOR)
+        draw_bar(turtles[left_iter], BAR_WIDTH * left_iter,
+                 0, data[left_iter], LEFT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[left_iter])
         # Draw the current sorted array
-        draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
+        draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH *
+                 (lower_idx+len(sorted_data)-1), 0, data[left_iter], MERGED_LIST_COLOR)
         time.sleep(bar_coloring_speed)
         screen.update()
         left_iter += 1
         # Recolor the first subarray after the pass of the left_iter
-        draw_bar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1), 0, data[left_iter-1], SUBLIST_ONE_COLOR)
+        draw_bar(turtles[left_iter-1], BAR_WIDTH * (left_iter-1),
+                 0, data[left_iter-1], SUBLIST_ONE_COLOR)
     # Add any leftover values from the right side of the array to the sorted array
     while right_iter <= upper_idx:
         # Draw the updated position of the right_iter
-        draw_bar(turtles[right_iter], BAR_WIDTH * right_iter, 0, data[right_iter], RIGHT_ITERATOR_COLOR)
+        draw_bar(turtles[right_iter], BAR_WIDTH * right_iter,
+                 0, data[right_iter], RIGHT_ITERATOR_COLOR)
         screen.update()
         sorted_data.append(data[right_iter])
         # Draw the current sorted array
-        draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH * (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
+        draw_box(turtles[lower_idx+len(sorted_data)-1], BAR_WIDTH *
+                 (lower_idx+len(sorted_data)-1), 0, data[right_iter], MERGED_LIST_COLOR)
         time.sleep(bar_coloring_speed)
         screen.update()
         right_iter += 1
         # Recolor the second subarray after the pass of the right_iter
-        draw_bar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1), 0, data[right_iter-1], SUBLIST_TWO_COLOR)
+        draw_bar(turtles[right_iter-1], BAR_WIDTH * (right_iter-1),
+                 0, data[right_iter-1], SUBLIST_TWO_COLOR)
 
     # Copy the sorted integers back into the data array
     for idx in range(len(sorted_data)):
@@ -119,18 +136,22 @@ def merge(lower_idx, middle_idx, upper_idx):
     # Update the bar graph to show the resulting sorted data
     for idx in range(lower_idx, upper_idx + 1):
         turtles[idx].clear()
-        draw_bar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], MERGED_LIST_COLOR)
+        draw_bar(turtles[idx], BAR_WIDTH * idx,
+                 0, data[idx], MERGED_LIST_COLOR)
         screen.update()
         time.sleep(bar_coloring_speed)
     time.sleep(pause_length)
     for idx in range(lower_idx, upper_idx + 1):
         turtles[idx].clear()
-        draw_bar(turtles[idx], BAR_WIDTH * idx, 0, data[idx], DEFAULT_BAR_COLOR)
+        draw_bar(turtles[idx], BAR_WIDTH * idx,
+                 0, data[idx], DEFAULT_BAR_COLOR)
     screen.update()
     time.sleep(pause_length)
 
 # Mergesort works by dividing an array into two subarrays, sorting them
 # recursively and then merging them back into a single, sorted array
+
+
 def mergesort(lower_idx, upper_idx):
     if lower_idx >= upper_idx:
         return
@@ -140,6 +161,8 @@ def mergesort(lower_idx, upper_idx):
     merge(lower_idx, middle_idx, upper_idx)
 
 # Draws a bar assuming the turtle is facing east
+
+
 def draw_bar(t, x, y, height, color):
     t.fillcolor(color)
     t.setheading(0)
@@ -161,7 +184,9 @@ def draw_bar(t, x, y, height, color):
     t.left(180)
     t.forward(BAR_WIDTH)
 
-# Draws a Box for an element in the subarray
+# Draws a box for an element in the subarray
+
+
 def draw_box(t, x, y, height, color):
     # Set up number the number inside the box
     t.penup()
@@ -176,7 +201,7 @@ def draw_box(t, x, y, height, color):
     t.left(90)
     t.forward(BOX_HEIGHT/4)
     t.left(90)
-    # Create the Box
+    # Create the box
     t.pendown()
     t.forward(BOX_WIDTH)
     t.left(90)
@@ -187,12 +212,14 @@ def draw_box(t, x, y, height, color):
     t.forward(1.8)
     t.left(90)
 
-# Set up the screen for creating the animation
+# Sets up the screen for creating the animation
+
+
 def initial_screen():
     # Creates a title for the screen's window
     screen.title("Merge Sort Algorithm")
     # Sets the height and width of the turtle window
-    screen.setup(width = SCREEN_WIDTH_PERCENT, height = SCREEN_HEIGHT_PERCENT)
+    screen.setup(width=SCREEN_WIDTH_PERCENT, height=SCREEN_HEIGHT_PERCENT)
     # Sets the screens background color
     screen.bgcolor(SCREEN_BACKGROUND)
     # Turns of the screen's auto update feature
@@ -205,6 +232,8 @@ def initial_screen():
                                max(data) + SCREEN_BORDER)
 
 # Sets the animation speed of the program to the slowest option
+
+
 def set_speed_one():
     global bar_coloring_speed
     global pause_length
@@ -213,6 +242,8 @@ def set_speed_one():
     begin_sorting()
 
 # Sets the animation speed of the program to the medium speed option
+
+
 def set_speed_two():
     global bar_coloring_speed
     global pause_length
@@ -221,6 +252,8 @@ def set_speed_two():
     begin_sorting()
 
 # Sets the animation speed of the program to the fastest option
+
+
 def set_speed_three():
     global bar_coloring_speed
     global pause_length
@@ -231,6 +264,8 @@ def set_speed_three():
 # Disables changing animation speed, writes the sorting status,
 # begins the mergesort() algorithm, writes the amount of the top integers
 # written to the screen, and visualizes the top k elements.
+
+
 def begin_sorting():
     # Turn off the onkey property so the sorting is not accidently restarted
     screen.onkey(None, "1")
@@ -251,7 +286,7 @@ def begin_sorting():
 
     # Write a description message to the screen
     write_description("Displaying top " + str(k) +
-                     " integers", DESCRIPTION_COLOR)
+                      " integers", DESCRIPTION_COLOR)
 
     # Show the top k integers in the data list
     for idx in range(len(data) - k, len(data)):
@@ -261,6 +296,8 @@ def begin_sorting():
         time.sleep(bar_coloring_speed)
 
 # Write a status of what is going on with the animation
+
+
 def write_status(status_message, color):
     status_writer.clear()
     status_writer.hideturtle()
@@ -276,6 +313,8 @@ def write_status(status_message, color):
     screen.update()
 
 # Adds an element and color block to the legend
+
+
 def legend_label(color, position, label):
 
     # Draw label in the legend
@@ -302,6 +341,8 @@ def legend_label(color, position, label):
     legend_writer.end_fill()
 
 # Draw the legend border and contents
+
+
 def draw_legend(color):
     legend_writer.clear()
     legend_writer.hideturtle()
@@ -342,6 +383,8 @@ def draw_legend(color):
     screen.update()
 
 # Write a description of what is going on with the animation
+
+
 def write_description(description_message, color):
     description_writer.clear()
     description_writer.hideturtle()
@@ -362,6 +405,8 @@ def write_description(description_message, color):
 # prompts the user to select a speed at which the program is animated,
 # and keeps the turtle screen open until the window is closed.
 # It calls three functions: initial_screen(), draw_bar(), and write_status().
+
+
 def main():
     # Initialize the global data variables that will be used in various functions
     global turtles
