@@ -28,8 +28,8 @@ LEFT_PIVOT_SUBLIST_COLOR = "white"
 RIGHT_PIVOT_SUBLIST_COLOR = "crimson"
 SCREEN_BORDER = 10
 BAR_WIDTH = 10
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
+SCREEN_WIDTH_PERCENT = 0.9
+SCREEN_HEIGHT_PERCENT = 0.9
 
 """ This is the generic partition step in quick sort.
     A pivot element is selected and then  the rest of the items in the array are compared to it, 
@@ -346,7 +346,7 @@ def init_screen():
     # Creates a title for the screen's window
     screen.title("Quick Select Algorithm")
     # Sets the height and width of the turtle window
-    screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
+    screen.setup(width = SCREEN_WIDTH_PERCENT, height = SCREEN_HEIGHT_PERCENT)
     # Sets the screens background color
     screen.bgcolor(SCREEN_BACKGROUND)
     # Turns of the screen's auto update feature
